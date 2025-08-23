@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apple II GS Serial Number Decoder</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?v=3.4.0"></script>
+  
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Vue.js CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  
+  <style>
+    /* Custom scrollbar styles */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    
+    /* Smooth transitions */
+    * {
+      transition: all 0.2s ease-in-out;
+    }
+    
+    /* Focus styles */
+    .focus-ring:focus {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Loading state -->
+    <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p class="text-gray-600">Loading Apple II GS Serial Number Decoder...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Script -->
+  <script type="module" src="/src/main.ts"></script>
+  
+  <!-- Fallback for when module loading fails -->
+  <script>
+    // Check if the app loaded successfully
+    setTimeout(() => {
+      const app = document.getElementById('app');
+      if (app && app.children.length === 1 && app.children[0].classList.contains('animate-spin')) {
+        app.innerHTML = `
+          <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+            <div class="text-center max-w-md mx-auto p-6">
+              <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <strong class="font-bold">Error:</strong>
+                <span class="block sm:inline">Failed to load the application.</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Please ensure you're running this in a development environment with Vite, 
+                or build the application first using <code class="bg-gray-200 px-2 py-1 rounded">npm run build</code>.
+              </p>
+              <button 
+                onclick="location.reload()" 
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }, 5000);
+  </script>
+</body>
+</html>
