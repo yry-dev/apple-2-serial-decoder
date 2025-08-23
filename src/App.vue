@@ -272,8 +272,7 @@
                     <p class="font-semibold text-yellow-800 mb-1">Tip:</p>
                     <p class="text-yellow-700">
                       Serial numbers are typically found on the bottom of the
-                      computer, on the back panel, or in the battery
-                      compartment.
+                      computer case.
                     </p>
                   </div>
                 </div>
@@ -404,7 +403,7 @@
     <!-- Footer -->
     <footer class="bg-white border-t border-gray-200 mt-12">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div class="text-center text-gray-600">
+        <div class="text-center text-gray-600 text-xs">
           <p>&copy; 2025 maddie no rights reserved.</p>
         </div>
       </div>
