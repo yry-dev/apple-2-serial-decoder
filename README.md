@@ -2,6 +2,8 @@
 
 A modern TypeScript Vue.js application for decoding Apple II GS serial numbers to reveal manufacturing details and ownership history. Built with Vue 3, TypeScript, Tailwind CSS, and Font Awesome.
 
+![Screenshot of the app](https://github.com/yry-dev/apple-2-serial-decoder/blob/main/preview.png?raw=true)
+
 ## Prerequisites
 
 - Node.js 24+
