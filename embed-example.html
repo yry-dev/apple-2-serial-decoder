@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple II GS Serial Decoder - Embed Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .embed-code {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+
+        .demo-frame {
+            width: 100%;
+            height: 800px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        .example-url {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #2196f3;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🍎 Apple II GS Serial Decoder - Embed Examples</h1>
+
+    <div class="container">
+        <h2>📋 How to Use Query String Parameters</h2>
+        <p>You can now embed this tool with custom owner databases by passing a URL via the <code>owners</code> query
+            parameter.</p>
+
+        <h3>🔗 Example URLs:</h3>
+        <div class="example-url">
+            <strong>With custom owners database:</strong><br>
+            <code>https://your-domain.com/index.html?owners=https://example.com/owners.json</code>
+        </div>
+
+        <div class="example-url">
+            <strong>With custom mount point:</strong><br>
+            <code>https://your-domain.com/index.html?mount=%23my-custom-div</code>
+        </div>
+
+        <div class="example-url">
+            <strong>Without owners database (owner info hidden):</strong><br>
+            <code>https://your-domain.com/index.html</code>
+        </div>
+
+        <h3>📝 Embed Code Examples:</h3>
+
+        <h4>1. With Custom Owners Database:</h4>
+        <div class="embed-code">&lt;iframe
+            src="https://your-domain.com/index.html?owners=https://example.com/owners.json"
+            width="100%"
+            height="800px"
+            frameborder="0"&gt;
+            &lt;/iframe&gt;</div>
+
+        <h4>2. With Custom Mount Point (Script Tag):</h4>
+        <div class="embed-code">&lt;div id="my-custom-div"&gt;&lt;/div&gt;
+            &lt;script src="https://your-domain.com/app.iife.js"
+            data-mount="#my-custom-div"&gt;&lt;/script&gt;</div>
+
+        <h4>3. With Custom Mount Point (Query String):</h4>
+        <div class="embed-code">&lt;div id="my-custom-div"&gt;&lt;/div&gt;
+            &lt;script src="https://your-domain.com/app.iife.js"&gt;&lt;/script&gt;
+            &lt;script&gt;
+            // The app will look for ?mount=%23my-custom-div in the URL
+            &lt;/script&gt;</div>
+
+        <h4>4. Without Owners Database:</h4>
+        <div class="embed-code">&lt;iframe
+            src="https://your-domain.com/index.html"
+            width="100%"
+            height="800px"
+            frameborder="0"&gt;
+            &lt;/iframe&gt;</div>
+    </div>
+
+    <div class="container">
+        <h2>🎯 Live Demo - With Custom Owners Database</h2>
+        <p>Below is the tool embedded with a custom owners database URL:</p>
+
+        <iframe src="index.html?owners=https://raw.githubusercontent.com/your-repo/your-owners-data/main/owners.json"
+            class="demo-frame" title="Apple II GS Serial Decoder with Custom Owners Database">
+        </iframe>
+
+        <p><em>Note: Replace the URL above with your actual owners.json file URL. For this demo, you can use any
+                publicly accessible JSON file.</em></p>
+    </div>
+
+    <div class="container">
+        <h2>🔧 Technical Details</h2>
+        <ul>
+            <li><strong>Query Parameter:</strong> <code>owners</code></li>
+            <li><strong>Value:</strong> Full URL to your JSON file (must be publicly accessible)</li>
+            <li><strong>Fallback:</strong> If no URL is provided, owner information is hidden</li>
+            <li><strong>Error Handling:</strong> If the URL fails to load, owner info is gracefully hidden</li>
+        </ul>
+
+        <h3>📊 Expected JSON Format:</h3>
+        <div class="embed-code">{
+            "E749": {
+            "lastOwner": "John Smith",
+            "ownerInfo": "Registered in 1987, last updated 2020"
+            },
+            "CK823": {
+            "lastOwner": "Jane Doe",
+            "ownerInfo": "Registered in 1988, last updated 2019"
+            }
+            }</div>
+
+        <h3>🎯 Mount Point Configuration</h3>
+        <p>The app automatically finds the best mount point using this priority order:</p>
+        <ol>
+            <li><strong>Query String:</strong> <code>?mount=%23my-div</code> (URL encoded)</li>
+            <li><strong>Script Data Attribute:</strong> <code>data-mount="#my-div"</code></li>
+            <li><strong>Element Data Attribute:</strong>
+                <code>&lt;div class="apple2gs-decoder" data-mount="#my-div"&gt;</code>
+            </li>
+            <li><strong>Default Fallback:</strong> <code>#app</code></li>
+        </ol>
+
+        <p><strong>Note:</strong> When using query strings, remember to URL encode the # symbol as %23.</p>
+    </div>
+
+    <div class="container">
+        <h2>🚀 Benefits of This Approach</h2>
+        <ul>
+            <li><strong>Flexible:</strong> Use your own owner database or none at all</li>
+            <li><strong>Embeddable:</strong> Perfect for embedding in other websites</li>
+            <li><strong>Maintainable:</strong> Update owner data without touching the tool code</li>
+            <li><strong>Scalable:</strong> Handle thousands of serial numbers</li>
+            <li><strong>Privacy:</strong> Keep sensitive owner data on your own servers</li>
+        </ul>
+    </div>
+</body>
+
+</html>

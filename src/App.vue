@@ -16,13 +16,18 @@
           <div class="flex items-center space-x-4">
             <button
               @click="showInfo = !showInfo"
-              class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-              :title="showInfo ? 'Hide Info' : 'Show Info'"
+              class="p-2 rounded-lg transition-colors"
+              :class="
+                showInfo
+                  ? 'text-green-600 hover:text-green-700 hover:bg-green-100'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+              "
+              :title="showInfo ? 'Hide About' : 'Show About Section'"
             >
               <i class="fas fa-info-circle text-xl"></i>
             </button>
             <a
-              href="https://github.com"
+              href="https://github.com/yry-dev/apple-2-serial-decoder/blob/main/README.md"
               target="_blank"
               rel="noopener noreferrer"
               class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
@@ -129,7 +134,10 @@
                 </div>
               </div>
 
-              <div class="mt-4 bg-white p-4 rounded-lg border border-green-200">
+              <div
+                v-if="hasOwnersData"
+                class="mt-4 bg-white p-4 rounded-lg border border-green-200"
+              >
                 <div class="text-sm font-medium text-green-700 mb-1">
                   Last Known Owner
                 </div>
@@ -220,6 +228,98 @@
 
         <!-- Info and Help Panel -->
         <div class="space-y-6">
+          <!-- About Info Panel -->
+          <div
+            v-if="showInfo"
+            class="bg-white rounded-xl shadow-lg p-6 border border-gray-200"
+          >
+            <h2
+              class="text-xl font-semibold text-gray-900 mb-6 flex items-center"
+            >
+              <i class="fas fa-cog mr-2 text-gray-600"></i>
+              About This Tool
+            </h2>
+
+            <div class="space-y-4 text-sm text-gray-700">
+              <p>
+                This tool decodes Apple II GS serial numbers to reveal
+                manufacturing details and ownership history.
+              </p>
+
+              <div class="bg-green-50 p-3 rounded-lg border border-green-200">
+                <div class="flex items-start">
+                  <i class="fas fa-user text-green-600 mt-1 mr-2"></i>
+                  <div>
+                    <p class="font-semibold text-green-800 mb-1">Author:</p>
+                    <p class="text-green-700">
+                      Created by
+                      <a
+                        href="https://madelyn.sh"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-green-800 hover:text-green-900 underline"
+                        >maddie</a
+                      >.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+                <div class="flex items-start">
+                  <i class="fas fa-lightbulb text-yellow-600 mt-1 mr-2"></i>
+                  <div>
+                    <p class="font-semibold text-yellow-800 mb-1">Tip:</p>
+                    <p class="text-yellow-700">
+                      Serial numbers are typically found on the bottom of the
+                      computer, on the back panel, or in the battery
+                      compartment.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                <div class="flex items-start">
+                  <i class="fas fa-info-circle text-blue-600 mt-1 mr-2"></i>
+                  <div>
+                    <p class="font-semibold text-blue-800 mb-1">Note:</p>
+                    <p class="text-blue-700">
+                      This tool uses a database of known serial numbers and
+                      factory codes. Some serial numbers may not be found in our
+                      database. The original database source can be found in the
+                      <a
+                        href="https://docs.google.com/spreadsheets/d/1UB9TyFh3mDyUXQgGm3Z7gxENAGOTFwL1fwLySoBRyU/edit?gid=0#gid=0"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-blue-800 hover:text-blue-900 underline"
+                        >Apple IIgs Serial Number Database</a
+                      >.
+                    </p>
+                    <div
+                      v-if="isLoadingOwners"
+                      class="mt-2 text-sm text-blue-600"
+                    >
+                      <i class="fas fa-spinner fa-spin mr-1"></i>
+                      Loading owner database...
+                    </div>
+                    <div
+                      v-if="!hasOwnersData && !isLoadingOwners"
+                      class="mt-2 text-sm text-gray-600"
+                    >
+                      <i class="fas fa-info-circle mr-1"></i>
+                      No owner database loaded. To enable owner information, add
+                      <code class="bg-gray-100 px-1 rounded"
+                        >?owners=URL_TO_YOUR_OWNERS_JSON</code
+                      >
+                      to the URL.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Serial Number Format Info -->
           <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
             <h2
@@ -297,54 +397,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Info Panel -->
-          <div
-            v-if="showInfo"
-            class="bg-white rounded-xl shadow-lg p-6 border border-gray-200"
-          >
-            <h2
-              class="text-xl font-semibold text-gray-900 mb-6 flex items-center"
-            >
-              <i class="fas fa-cog mr-2 text-gray-600"></i>
-              About This Tool
-            </h2>
-
-            <div class="space-y-4 text-sm text-gray-700">
-              <p>
-                This tool decodes Apple II GS serial numbers to reveal
-                manufacturing details and ownership history.
-              </p>
-
-              <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200">
-                <div class="flex items-start">
-                  <i class="fas fa-lightbulb text-yellow-600 mt-1 mr-2"></i>
-                  <div>
-                    <p class="font-semibold text-yellow-800 mb-1">Tip:</p>
-                    <p class="text-yellow-700">
-                      Serial numbers are typically found on the bottom of the
-                      computer, on the back panel, or in the battery
-                      compartment.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                <div class="flex items-start">
-                  <i class="fas fa-info-circle text-blue-600 mt-1 mr-2"></i>
-                  <div>
-                    <p class="font-semibold text-blue-800 mb-1">Note:</p>
-                    <p class="text-blue-700">
-                      This tool uses a database of known serial numbers and
-                      factory codes. Some serial numbers may not be found in our
-                      database.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </main>
@@ -353,10 +405,7 @@
     <footer class="bg-white border-t border-gray-200 mt-12">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div class="text-center text-gray-600">
-          <p>
-            &copy; 2024 Apple II GS Serial Number Decoder. Built with Vue.js,
-            TypeScript, and Tailwind CSS.
-          </p>
+          <p>&copy; 2025 maddie no rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -393,6 +442,12 @@ const decodedInfo = ref<DecodedInfo | null>(null);
 const errorMessage = ref('');
 const showInfo = ref(false);
 const searchHistory = ref<SearchHistory[]>([]);
+const ownersData = ref<
+  Record<string, { lastOwner: string; ownerInfo: string }>
+>({});
+const isLoadingOwners = ref(false);
+const hasOwnersData = ref(false);
+const ownersUrl = ref<string | null>(null);
 
 // Factory codes database for Apple II GS
 const factoryCodes = reactive<FactoryCode[]>([
@@ -434,6 +489,40 @@ const isValidSerial = computed(() => {
 });
 
 // Methods
+const parseQueryString = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const ownersParam = urlParams.get('owners');
+  if (ownersParam) {
+    ownersUrl.value = decodeURIComponent(ownersParam);
+  }
+};
+
+const fetchOwners = async () => {
+  // If no owners URL is provided, skip fetching
+  if (!ownersUrl.value) {
+    hasOwnersData.value = false;
+    return;
+  }
+
+  try {
+    isLoadingOwners.value = true;
+    const response = await fetch(ownersUrl.value);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    ownersData.value = data;
+    hasOwnersData.value = true;
+  } catch (error) {
+    console.error('Failed to load owners data:', error);
+    // Fallback to empty object if fetch fails
+    ownersData.value = {};
+    hasOwnersData.value = false;
+  } finally {
+    isLoadingOwners.value = false;
+  }
+};
+
 const decodeSerial = async () => {
   if (!isValidSerial.value || !serialNumber.value.trim()) return;
 
@@ -509,30 +598,17 @@ const decodeSerialNumber = (serial: string): DecodedInfo | null => {
     factoryCodes.find(f => f.code === factoryCode)?.name ||
     `${factoryCode} (Unknown Factory)`;
 
-  // Mock owner database - in a real app, this would query a database
-  const mockOwners: Record<string, { lastOwner: string; ownerInfo: string }> = {
-    E749: {
-      lastOwner: 'John Smith',
-      ownerInfo: 'Registered in 1987, last updated 2020',
-    },
-    CK823: {
-      lastOwner: 'Jane Doe',
-      ownerInfo: 'Registered in 1988, last updated 2019',
-    },
-    F715: {
-      lastOwner: 'Mike Johnson',
-      ownerInfo: 'Registered in 1987, last updated 2021',
-    },
-    NE940: {
-      lastOwner: 'Sarah Wilson',
-      ownerInfo: 'Registered in 1989, last updated 2022',
-    },
-  };
+  // Owner database loaded from JSON file
+  const mockOwners = ownersData.value;
 
   const ownerKey = factoryCode + yearDigit + week;
   const owner = mockOwners[ownerKey] || {
-    lastOwner: 'Unknown Owner',
-    ownerInfo: 'No registration information available',
+    lastOwner: hasOwnersData.value
+      ? 'Unknown Owner'
+      : 'Owner data not available',
+    ownerInfo: hasOwnersData.value
+      ? 'No registration information available'
+      : 'This tool is running without owner database',
   };
 
   return {
@@ -566,7 +642,13 @@ const clearHistory = () => {
 };
 
 // Lifecycle
-onMounted(() => {
+onMounted(async () => {
+  // Parse query string for owners URL
+  parseQueryString();
+
+  // Load owners data if URL is provided
+  await fetchOwners();
+
   // Load search history from localStorage
   const saved = localStorage.getItem('searchHistory');
   if (saved) {
