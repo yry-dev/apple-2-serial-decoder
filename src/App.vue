@@ -461,6 +461,9 @@ const factoryCodes = reactive<FactoryCode[]>([
   { code: 'R', name: 'Reno, NV' },
 ]);
 
+// Some serial numbers end with a "/A"
+const sanitizeSerial = (serial: string): string => serial.replace(/\/.*$/, '');
+
 // Base-34 decoding function for unit count
 const decodeBase34 = (str: string): number => {
   const base34Chars = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ'; // Excluding I and O
@@ -578,7 +581,7 @@ const decodeSerial = async () => {
 
 const decodeSerialNumber = (serial: string): DecodedInfo | null => {
   // Parse the serial number format: X-Y-WW-YYY-XXXXXX
-  const match = serial.match(
+  const match = sanitizeSerial(serial).match(
     /^([A-Z]{1,2})(\d{1})(\d{2})([A-Z0-9]{3})([A-Z0-9]{6,})$/
   );
 
