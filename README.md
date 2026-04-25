@@ -7,7 +7,7 @@ A modern TypeScript Vue.js application for decoding Apple II GS serial numbers t
 ## Prerequisites
 
 - Node.js 24+
-- npm or yarn package manager
+- npm
 
 ## Installation
 
